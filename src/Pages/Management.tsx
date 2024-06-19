@@ -56,32 +56,30 @@ const Manager = () => {
   };
 
   return (
-    <>
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex flex-col border border-black">
-          {useBoard.board.map((line, i) => (
-            <div key={i} className="flex">
-              {line.map((c, j) => (
-                <div
-                  key={i + j}
-                  className={cn(
-                    c === 0 ? 'bg-transparent' : 'bg-orange-950',
-                    'flex size-10 text-white justify-center items-center border border-black'
-                  )}
-                  onDrop={(e) => handleOnDrop(e, { x: j, y: i })}
-                  onDragOver={handleDragOver}
-                  onClick={() => {
-                    setSelectedId(useBoard.board[i][j]);
-                  }}
-                >
-                  {c ? c : ''}
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+    <div className="flex flex-col justify-center items-center">
+      <div className="flex flex-col border border-black">
+        {useBoard.board.map((line, i) => (
+          <div key={i} className="flex">
+            {line.map((c, j) => (
+              <div
+                key={i + j}
+                className={cn(
+                  c === 0 ? 'bg-transparent' : 'bg-orange-950',
+                  'flex size-10 text-white justify-center items-center border border-black'
+                )}
+                onDrop={(e) => handleOnDrop(e, { x: j, y: i })}
+                onDragOver={handleDragOver}
+                onClick={() => {
+                  setSelectedId(useBoard.board[i][j]);
+                }}
+              >
+                {c ? c : ''}
+              </div>
+            ))}
+          </div>
+        ))}
       </div>
-      <div className="flex gap-3">
+      <div className="flex gap-3 mt-5">
         {blueprints.map((blueprint) => {
           const index = '' + blueprint.size.x + ' ' + blueprint.size.y;
           return (
@@ -99,7 +97,7 @@ const Manager = () => {
           <Trash />
         </Button>
       </div>
-    </>
+    </div>
   );
 };
 

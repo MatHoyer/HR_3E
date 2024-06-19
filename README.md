@@ -23,8 +23,9 @@ npm run dev
 
 ```
 In the management page:
-  to add a table u can drag and drop littles card, the first number is the x size and the second the y
-  to remove one you can click on it and after click on the bin
+  - to add a table u can drag and drop littles card,
+      the first number is the x size and the second the y
+  - to remove one you can click on it and after click on the trash
 ```
 
 Exemple of json file to input
@@ -39,3 +40,6 @@ Exemple of json file to input
   ]
 }
 ```
+
+co is the position of the table top left part
+size is the length of each side of the table
