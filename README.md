@@ -1,4 +1,4 @@
-In this project you can create a map of your restaurant, place and moves tables.
+In this project you can create a map of your restaurant, place and delete tables.
 You can also export and import maps
 
 install dependencies
