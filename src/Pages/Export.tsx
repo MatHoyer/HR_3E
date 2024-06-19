@@ -18,11 +18,13 @@ export const Export = () => {
   return (
     <div className="flex flex-col justify-center items-center gap-3">
       {url === '' ? <p>Create a map before export</p> : <p>Export the map</p>}
-      <Button disabled={url === ''}>
-        <a href={url} download={'data.json'}>
-          Export
-        </a>
-      </Button>
+      {url !== '' && (
+        <Button asChild>
+          <a href={url} download={'data.json'}>
+            Export
+          </a>
+        </Button>
+      )}
     </div>
   );
 };

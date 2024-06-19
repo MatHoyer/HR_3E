@@ -109,8 +109,8 @@ export const Management = () => {
       {useBoard.board.length !== 0 ? (
         <Manager />
       ) : (
-        <div className="mt-5 flex justify-center items-center">
-          <p>You doesn't set a map yet</p>
+        <div className="flex justify-center items-center">
+          <p>Create a map before manage it</p>
         </div>
       )}
     </>
