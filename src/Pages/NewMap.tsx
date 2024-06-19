@@ -11,11 +11,11 @@ const formSchema = z.object({
   x: z
     .string()
     .min(1, 'Width must be a number')
-    .regex(/^[0-9]*$/, 'NaN'),
+    .regex(/^(?:[1-9]|[12][0-9]|30)$/, 'NaN'),
   y: z
     .string()
     .min(1, 'Height must be a number')
-    .regex(/^[0-9]*$/, 'NaN'),
+    .regex(/^(?:[1-9]|10)$/, 'NaN'),
 });
 
 type Form = z.infer<typeof formSchema>;
@@ -52,7 +52,7 @@ export const NewMap = () => {
               name="x"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Width</FormLabel>
+                  <FormLabel>Width (max 30)</FormLabel>
                   <FormControl>
                     <Input placeholder="width" {...field} />
                   </FormControl>
@@ -64,7 +64,7 @@ export const NewMap = () => {
               name="y"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Height</FormLabel>
+                  <FormLabel>Height (max 10)</FormLabel>
                   <FormControl>
                     <Input placeholder="height" {...field} />
                   </FormControl>

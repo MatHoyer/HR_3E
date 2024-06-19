@@ -10,8 +10,30 @@ export const DropFile = () => {
   const useMap = useMapStore();
   const navigate = useNavigate();
 
+  const isGoodFile = (f: { boardSize: { x: number; y: number }; tables: TTable[] }) => {
+    const isNotCoBetween = (co: number, min: number, max: number) => {
+      if (co < min || co > max) return true;
+      return false;
+    };
+
+    if (isNotCoBetween(f.boardSize.x, 1, 30)) return false;
+    if (isNotCoBetween(f.boardSize.y, 1, 10)) return false;
+    if (
+      f.tables.some((table) => {
+        if (isNotCoBetween(table.co.x, 1, f.boardSize.x)) return true;
+        if (isNotCoBetween(table.co.y, 1, f.boardSize.y)) return true;
+        if (isNotCoBetween(table.co.x + table.size.x, 1, f.boardSize.x)) return true;
+        if (isNotCoBetween(table.co.y + table.size.y, 1, f.boardSize.y)) return true;
+        if (table.id < 1) return true;
+        return false;
+      })
+    )
+      return false;
+    return true;
+  };
+
   useEffect(() => {
-    if (file) {
+    if (file && isGoodFile(file)) {
       if (file.tables.length === 0) useMap.nextId = 1;
       else useMap.nextId = Math.max(...file.tables.map((table) => table.id)) + 1;
       setTables(file.tables);

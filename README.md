@@ -22,8 +22,14 @@ npm run dev
 ```
 
 ```
+In the upload page:
+  - if nothing append when you input a file,
+      that is because the file isn't valid
+```
+
+```
 In the management page:
-  - to add a table u can drag and drop littles card,
+  - to add a table u can drag and drop littles cards,
       the first number is the x size and the second the y
   - to remove one you can click on it and after click on the trash
 ```
