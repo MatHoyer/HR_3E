@@ -26,7 +26,7 @@ type blueprintStore = {
 };
 
 export const useBlueprintStore = create<blueprintStore>((set) => ({
-  blueprints: [{ size: { x: 1, y: 1 } }, { size: { x: 2, y: 2 } }, { size: { x: 2, y: 4 } }],
+  blueprints: [{ size: { x: 1, y: 1 } }, { size: { x: 2, y: 2 } }, { size: { x: 2, y: 4 } }, { size: { x: 4, y: 2 } }],
   setBlueprints: (newBlueprints) => {
     set({ blueprints: newBlueprints });
   },

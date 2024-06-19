@@ -13,7 +13,7 @@ export const DropFile = () => {
   useEffect(() => {
     if (file) {
       if (file.tables.length === 0) useMap.nextId = 1;
-      else useMap.nextId = Math.max(...file.tables.map((table) => table.id));
+      else useMap.nextId = Math.max(...file.tables.map((table) => table.id)) + 1;
       setTables(file.tables);
       const newBoard = Array(file.boardSize.y)
         .fill(0)
@@ -21,7 +21,7 @@ export const DropFile = () => {
       file.tables.map((table) => {
         for (let x = table.co.x; x < table.co.x + table.size.x; x++) {
           for (let y = table.co.y; y < table.co.y + table.size.y; y++) {
-            newBoard[x][y] = table.id;
+            newBoard[y][x] = table.id;
           }
         }
       });
