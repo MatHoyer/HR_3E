@@ -1,6 +1,5 @@
 import { useBlueprintStore, useMapStore } from '@/Store';
 import { cn } from '@/lib/utils';
-import { useEffect } from 'react';
 
 export const Management = () => {
   const useBoard = useMapStore();
@@ -17,6 +16,12 @@ export const Management = () => {
     const newBoard = useBoard.board;
     for (let x = co.x; x < co.x + Number(widget[0]); x++) {
       for (let y = co.y; y < co.y + Number(widget[1]); y++) {
+        if (y >= useBoard.board.length || x >= useBoard.board[0].length) return;
+        if (useBoard.board[x][y] !== 0) return;
+      }
+    }
+    for (let x = co.x; x < co.x + Number(widget[0]); x++) {
+      for (let y = co.y; y < co.y + Number(widget[1]); y++) {
         newBoard[x][y] = useBoard.nextId;
       }
     }
@@ -30,46 +35,52 @@ export const Management = () => {
     console.log('drag over');
   };
 
-  useEffect(() => {}, [useBoard.board]);
-
   return (
     <>
-      <div className="flex flex-col justify-center items-center">
-        <div className="flex flex-col border border-black">
-          {useBoard.board.map((line, i) => (
-            <div key={i} className="flex">
-              {line.map((c, j) => (
-                <div
-                  key={i + j}
-                  className={cn(
-                    c === 0 ? 'bg-transparent' : 'bg-orange-950',
-                    'flex size-10 text-white justify-center items-center border border-black'
-                  )}
-                  onDrop={(e) => handleOnDrop(e, { x: i, y: j })}
-                  onDragOver={handleDragOver}
-                >
-                  {c ? c : ''}
+      {useBoard.board.length !== 0 ? (
+        <>
+          <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col border border-black">
+              {useBoard.board.map((line, i) => (
+                <div key={i} className="flex">
+                  {line.map((c, j) => (
+                    <div
+                      key={i + j}
+                      className={cn(
+                        c === 0 ? 'bg-transparent' : 'bg-orange-950',
+                        'flex size-10 text-white justify-center items-center border border-black'
+                      )}
+                      onDrop={(e) => handleOnDrop(e, { x: i, y: j })}
+                      onDragOver={handleDragOver}
+                    >
+                      {c ? c : ''}
+                    </div>
+                  ))}
                 </div>
               ))}
             </div>
-          ))}
+          </div>
+          <div className="flex gap-3">
+            {blueprints.map((blueprint) => {
+              const index = '' + blueprint.size.x + ' ' + blueprint.size.y;
+              return (
+                <div
+                  key={index}
+                  draggable
+                  onDragStart={(e) => handleOnDrag(e, index)}
+                  className="flex justify-center items-center size-10 text-white bg-orange-950"
+                >
+                  {index}
+                </div>
+              );
+            })}
+          </div>
+        </>
+      ) : (
+        <div className="mt-5 flex justify-center items-center">
+          <p>You doesn't set a map yet</p>
         </div>
-      </div>
-      <div className="flex gap-3">
-        {blueprints.map((blueprint) => {
-          const index = '' + blueprint.size.x + ' ' + blueprint.size.y;
-          return (
-            <div key={index} draggable onDragStart={(e) => handleOnDrag(e, index)}>
-              {index}
-            </div>
-          );
-        })}
-      </div>
-      {/* <div className="border border-black h-10" onDrop={handleOnDrop} onDragOver={handleDragOver}>
-        {widgets.map((widget, i) => (
-          <div key={i}>{widget}</div>
-        ))}
-      </div> */}
+      )}
     </>
   );
 };
