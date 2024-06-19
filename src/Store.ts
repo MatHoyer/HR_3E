@@ -1,25 +1,33 @@
 import { create } from 'zustand';
 
-type boardStore = {
+type mapStore = {
+  nextId: number;
   board: TBoard;
+  tables: TTable[];
   setBoard: (newBoard: TBoard) => void;
+  setTables: (newTables: TTable[]) => void;
 };
 
-export const useBoardStore = create<boardStore>((set) => ({
+export const useMapStore = create<mapStore>((set) => ({
+  nextId: 1,
   board: [],
+  tables: [],
   setBoard: (newBoard) => {
     set({ board: newBoard });
   },
+  setTables: (newTables) => {
+    set({ tables: newTables });
+  },
 }));
 
-type tablesStore = {
-  tables: TTable[];
-  setTables: (layout: TTable[]) => void;
+type blueprintStore = {
+  blueprints: TBlueprint[];
+  setBlueprints: (newBlueprints: TBlueprint[]) => void;
 };
 
-export const useTablesStore = create<tablesStore>((set) => ({
-  tables: [],
-  setTables: (layout) => {
-    set({ tables: layout });
+export const useBlueprintStore = create<blueprintStore>((set) => ({
+  blueprints: [{ size: { x: 1, y: 1 } }, { size: { x: 2, y: 2 } }, { size: { x: 2, y: 4 } }],
+  setBlueprints: (newBlueprints) => {
+    set({ blueprints: newBlueprints });
   },
 }));

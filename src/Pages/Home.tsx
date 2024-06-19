@@ -1,4 +1,4 @@
-import { useBoardStore } from '@/Store';
+import { useMapStore } from '@/Store';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ const EmptyBoard = () => {
 };
 
 const Board = () => {
-  const useBoard = useBoardStore();
+  const useBoard = useMapStore();
   return (
     <div className="flex flex-col border border-black">
       {useBoard.board.map((line, i) => (
@@ -38,7 +38,7 @@ const Board = () => {
 };
 
 export const Home = () => {
-  const useBoard = useBoardStore();
+  const useBoard = useMapStore();
 
   return (
     <div className="flex flex-col justify-center items-center">

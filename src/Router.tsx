@@ -1,11 +1,16 @@
 import { Route, Routes } from 'react-router-dom';
-import { Export, Home, NewMap, Upload } from './Pages';
+import { Export, Home, Management, NewMap, Upload } from './Pages';
 
 export const routes = [
   {
     name: 'Home',
     path: '/',
     element: <Home />,
+  },
+  {
+    name: 'Management',
+    path: '/management',
+    element: <Management />,
   },
   {
     name: 'Export',

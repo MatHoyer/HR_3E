@@ -2,4 +2,8 @@ type TBoard = number[][];
 
 type TShape = 'round' | 'square';
 
-type TTable = { id: number; co: { x: number; y: number }; size: { x: number; y: number }; shape: TShape };
+type TCoordinate = { x: number; y: number };
+
+type TTable = { id: number; co: TCoordinate; size: TCoordinate };
+
+type TBlueprint = { size: TCoordinate };

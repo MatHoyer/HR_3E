@@ -1,4 +1,4 @@
-import { useBoardStore } from '@/Store';
+import { useMapStore } from '@/Store';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -21,7 +21,7 @@ const formSchema = z.object({
 type Form = z.infer<typeof formSchema>;
 
 export const NewMap = () => {
-  const setBoard = useBoardStore((state) => state.setBoard);
+  const setBoard = useMapStore((state) => state.setBoard);
   const navigate = useNavigate();
 
   const form = useForm<Form>({

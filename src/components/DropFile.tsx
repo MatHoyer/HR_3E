@@ -1,16 +1,19 @@
-import { useBoardStore, useTablesStore } from '@/Store';
+import { useMapStore } from '@/Store';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Input } from './ui/input';
 
 export const DropFile = () => {
   const [file, setFile] = useState<{ boardSize: { x: number; y: number }; tables: TTable[] } | null>(null);
-  const setTables = useTablesStore((state) => state.setTables);
-  const setBoard = useBoardStore((state) => state.setBoard);
+  const setTables = useMapStore((state) => state.setTables);
+  const setBoard = useMapStore((state) => state.setBoard);
+  const useMap = useMapStore();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (file) {
+      if (file.tables.length === 0) useMap.nextId = 1;
+      else useMap.nextId = Math.max(...file.tables.map((table) => table.id));
       setTables(file.tables);
       const newBoard = Array(file.boardSize.y)
         .fill(0)

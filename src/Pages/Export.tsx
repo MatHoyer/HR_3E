@@ -1,9 +1,9 @@
-import { useBoardStore, useTablesStore } from '@/Store';
+import { useMapStore } from '@/Store';
 import { Button } from '@/components/ui/button';
 
 export const Export = () => {
-  const tables = useTablesStore((state) => state.tables);
-  const board = useBoardStore((state) => state.board);
+  const tables = useMapStore((state) => state.tables);
+  const board = useMapStore((state) => state.board);
 
   let url = '';
   if (board.length !== 0) {
