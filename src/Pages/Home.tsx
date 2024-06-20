@@ -15,13 +15,13 @@ const EmptyBoard = () => {
 };
 
 const Board = () => {
-  const useBoard = useMapStore();
+  const useMap = useMapStore();
   const navigate = useNavigate();
 
   return (
     <>
       <div className="flex flex-col border border-black">
-        {useBoard.board.map((line, i) => (
+        {useMap.board.map((line, i) => (
           <div key={i} className="flex">
             {line.map((c, j) => (
               <div
@@ -46,11 +46,11 @@ const Board = () => {
 };
 
 export const Home = () => {
-  const useBoard = useMapStore();
+  const useMap = useMapStore();
 
   return (
     <div className="flex flex-col justify-center items-center">
-      {useBoard.board.length === 0 ? <EmptyBoard /> : <Board />}
+      {useMap.board.length === 0 ? <EmptyBoard /> : <Board />}
     </div>
   );
 };

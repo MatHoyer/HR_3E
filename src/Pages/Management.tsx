@@ -5,7 +5,7 @@ import { Trash } from 'lucide-react';
 import { useState } from 'react';
 
 const Manager = () => {
-  const useBoard = useMapStore();
+  const useMap = useMapStore();
   const blueprints = useBlueprintStore((state) => state.blueprints);
   const [selectedId, setSelectedId] = useState(0);
 
@@ -15,34 +15,32 @@ const Manager = () => {
 
   const handleOnDrop = (e: React.DragEvent, co: TCoordinate) => {
     const widgetType = e.dataTransfer.getData('widgetType') as string;
-    console.log('widgetType', widgetType);
     const widget = widgetType.split(' ');
-    const newBoard = useBoard.board;
+    const newBoard = useMap.board;
     for (let x = co.x; x < co.x + Number(widget[0]); x++) {
       for (let y = co.y; y < co.y + Number(widget[1]); y++) {
-        if (y >= useBoard.board.length || x >= useBoard.board[0].length) return;
-        if (useBoard.board[y][x] !== 0) return;
+        if (y >= useMap.board.length || x >= useMap.board[0].length) return;
+        if (useMap.board[y][x] !== 0) return;
       }
     }
     for (let x = co.x; x < co.x + Number(widget[0]); x++) {
       for (let y = co.y; y < co.y + Number(widget[1]); y++) {
-        newBoard[y][x] = useBoard.nextId;
+        newBoard[y][x] = useMap.nextId;
       }
     }
-    useBoard.tables.push({ id: useBoard.nextId, co, size: { x: Number(widget[0]), y: Number(widget[1]) } });
-    useBoard.nextId += 1;
-    useBoard.setBoard(newBoard);
+    useMap.tables.push({ id: useMap.nextId, co, size: { x: Number(widget[0]), y: Number(widget[1]) } });
+    useMap.nextId += 1;
+    useMap.setBoard(newBoard);
     setSelectedId(0);
   };
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
-    console.log('drag over');
   };
 
   const handleDelete = () => {
-    const newTables = useBoard.tables.filter((table) => table.id !== selectedId);
-    const newBoard = useBoard.board;
+    const newTables = useMap.tables.filter((table) => table.id !== selectedId);
+    const newBoard = useMap.board;
     for (let i = 0; i < newBoard.length; i++) {
       for (let j = 0; j < newBoard[i].length; j++) {
         if (newBoard[i][j] === selectedId) {
@@ -50,15 +48,15 @@ const Manager = () => {
         }
       }
     }
-    useBoard.setBoard(newBoard);
-    useBoard.setTables(newTables);
+    useMap.setBoard(newBoard);
+    useMap.setTables(newTables);
     setSelectedId(0);
   };
 
   return (
     <div className="flex flex-col justify-center items-center">
       <div className="flex flex-col border border-black">
-        {useBoard.board.map((line, i) => (
+        {useMap.board.map((line, i) => (
           <div key={i} className="flex">
             {line.map((c, j) => (
               <div
@@ -70,7 +68,7 @@ const Manager = () => {
                 onDrop={(e) => handleOnDrop(e, { x: j, y: i })}
                 onDragOver={handleDragOver}
                 onClick={() => {
-                  setSelectedId(useBoard.board[i][j]);
+                  setSelectedId(useMap.board[i][j]);
                 }}
               >
                 {c ? c : ''}
@@ -102,11 +100,11 @@ const Manager = () => {
 };
 
 export const Management = () => {
-  const useBoard = useMapStore();
+  const useMap = useMapStore();
 
   return (
     <>
-      {useBoard.board.length !== 0 ? (
+      {useMap.board.length !== 0 ? (
         <Manager />
       ) : (
         <div className="flex justify-center items-center">
